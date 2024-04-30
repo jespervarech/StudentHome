@@ -4,7 +4,7 @@ import HouseItem from "./HouseItem";
 
 function HouseList() {
   const [houses, setHouses] = useState([]);
-  const [displayCount, setDisplayCount] = useState(3);
+  const [displayCount, setDisplayCount] = useState(4);
   const listref = useRef(null);
   useEffect(() => {
     const fetchHouses = async () => {
@@ -20,14 +20,15 @@ function HouseList() {
 
     fetchHouses();
   }, []);
+  
 
   const handleShowMore = () => {
-    setDisplayCount((prevCount) => prevCount + 3);
+    setDisplayCount((prevCount) => prevCount + 4);
     listref.current.scrollIntoView({ behavior: "smooth", block: "end" });
   };
 
   const handleShowLess = () => {
-    setDisplayCount(3);
+    setDisplayCount(4);
     listref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -39,7 +40,7 @@ function HouseList() {
         From single rooms to shared spaces, each listing offers comfortable
         living with flexible lease options. Find your ideal student home now!"
       </p>
-      <div ref={listref} className="row ">
+      <div ref={listref} className="row  ">
         {houses.slice(0, displayCount).map((house, index) => (
           <HouseItem key={index} house={house} />
         ))}

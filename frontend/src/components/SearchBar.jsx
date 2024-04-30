@@ -22,13 +22,14 @@ function SearchBar() {
     <div className="search-box row px-1 w-lg-75 w-100 mt-3 mt-lg-5">
       <div className="col-md-4  g-2 p-0 px-lg-1 ">
         <div className="form-floating">
+          
           <select
             className="form-select"
             id="city"
             name="city"
             aria-label="Floating label select example"
           >
-            <option  disabled>
+            <option  disabled selected>
               Open to select
             </option>
             {cities.map((city) => (

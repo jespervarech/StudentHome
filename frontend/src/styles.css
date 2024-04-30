@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap');
 
 :root {
     --black: #121212;
@@ -7,6 +7,8 @@
     --blue-light: #00E0C7;
     --blue: #009394;
     --blue-dark: #006270;
+    --font-red: "Red Hat Text", sans-serif;
+    --font-poppins : "Poppins", sans-serif;
     --fs-xxl: 60px;
     --fs-xl: 44px;
     --fs-lg: 30px;
@@ -15,50 +17,62 @@
     --fs-xs: 22px;
     --fs-xxs: 10px;
     --transition: .5s ease;
-    --shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-    --nav-hight: 50px;
+    --shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    --nav-hight: max-content;
     --border-radius: 10px;
 }
 
 body {
-    font-family: "Montserrat", sans-serif;
+    font-family: var(--font-poppins);
     background-color: var(--white);
     width: 100vw;
     overflow-x: hidden;
 }
+
 html {
     scrollbar-width: thin;
     scrollbar-color: var(--blue-dark) var(--white);
 }
-
+i{
+    color: var(--black);
+}
 .link {
     color: var(--black);
     text-decoration: none;
 }
-ul{
+
+ul {
     list-style: none !important;
 }
+
 input,
 select {
     border-radius: var(--border-radius) !important;
+
 }
 
 input:focus,
 select:focus {
     outline: none !important;
     box-shadow: none !important;
-    border: none !important;
+    border: 2px solid var(--blue-light) !important;
 }
-button{
-    background-color: var(--blue);
-    border: none;
+
+button {
+    border: 2px solid var(--black);
+    text-decoration: none;
+    color: var(--black);
     border-radius: var(--border-radius);
-    color: var(--white);
+    text-transform: uppercase;
     transition: var(--transition);
 }
-button:hover{
+button:hover {
     background-color: var(--blue-dark);
+    border-color: var(--blue-dark);
+    color: var(--white);
+
 }
+
 /* nav */
 .nav {
     height: var(--nav-hight);
@@ -75,21 +89,36 @@ button:hover{
 }
 
 .nav .logo span {
-    color: var(--blue-light);
+    color: var(--blue);
 }
 
 .nav .nav-link {
+    text-transform: uppercase;
     color: var(--black);
     font-size: var(--fs-sm);
     font-weight: 600;
     transition: var(--transition);
     border-radius: var(--border-radius);
 }
-
+.nav .nav-link-button{
+    border: 2px solid var(--black);
+    text-decoration: none;
+    color: var(--black);
+    border-radius: var(--border-radius);
+    text-transform: uppercase;
+    transition: var(--transition);
+}
+.nav .nav-link-button:hover{
+    background-color: var(--blue-dark);
+    border-color: var(--blue-dark);
+    color: var(--white);
+}
 .nav .nav-link:hover {
     color: var(--blue);
 }
-
+.offcanvas .close {
+    color: var(--txt-color);
+}
 /* home */
 .home {
     text-align: center;
@@ -97,46 +126,45 @@ button:hover{
 }
 
 .bg-home {
-    margin-top: var(--nav-hight);
-    height: 90vh;
+
+    height: 100vh;
     width: inherit;
     background: url("./img/bg.jpg") top center;
     background-size: cover;
     border-radius: var(--border-radius);
-    backdrop-filter: blur(8px);
 }
 
 .home h1 {
+    font-family: var(--font-red);
+    text-transform: uppercase;
     color: var(--white);
-    font-weight: bold;
     font-size: var(--fs-xxl);
 }
-
+.home h1 span{
+    font-style: italic;
+}
 .home p {
     color: var(--white);
     font-size: var(--fs-md);
 }
 
-@media (max-width: 992px) {
-    .home h1 {
-        font-size: var(--fs-xl);
-    }
 
-}
 
 .form-control {
     background-color: var(--white) !important;
     color: var(--grey);
+
 }
 
 .search-icon {
     background-color: var(--blue-light);
-    color: var(--white);
     font-size: var(--fs-lg);
     border-radius: var(--border-radius);
     transition: var(--transition);
 }
-
+.search-icon i {
+    color: var(--white) !important;
+}
 .search-icon:hover {
     background-color: var(--blue);
 }
@@ -144,27 +172,34 @@ button:hover{
 /* house list */
 .house-list {
     min-height: 100vh;
+    padding-top: var(--nav-hight);
 }
-.house-list h1{
+
+.house-list h1 {
     text-align: center;
     color: var(--black);
     font-size: var(--fs-lg);
 }
-.house-list p{
+
+.house-list p {
     text-align: center;
     color: var(--grey);
     font-size: var(--fs-md);
 }
+
 .house-box {
     border-radius: var(--border-radius);
-}
-.house-box:hover{
     box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.house-box:hover {
+    transform: translateY(10px);
 }
 
 
 .house-box img {
-    border-radius: var(--border-radius) var(--border-radius) 0% 0%;
+    border-radius: var(--border-radius) var(--border-radius) 0%  0%;
     width: 100%;
     height: 25rem;
     object-fit: cover;
@@ -176,14 +211,9 @@ button:hover{
     font-weight: bold;
 }
 
-.house-box .rating i {
+ .rating i {
     color: var(--blue);
 }
-
-.house-box .rating i.true {
-    color: var(--blue-light);
-}
-
 .house-box h2 {
     color: var(--black);
     font-size: var(--fs-md);
@@ -213,70 +243,94 @@ button:hover{
 .house-box .price-box p span {
     font-weight: bolder;
 }
-.house-box .link{
+
+.house-box .link {
     color: var(--white);
     font-size: var(--fs-sm);
     text-decoration: underline;
     text-transform: capitalize;
 }
+
 /* house-details */
-.house-details{
+.house-details {
     margin-top: var(--nav-hight);
-   
+
 }
+
 .house-details-box {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
 }
+
 .house-details img {
     width: 100%;
     height: 25rem;
     background-position: top center;
     object-fit: cover;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius) var(--border-radius) 0%  0%;
     box-shadow: var(--shadow);
 }
-.house-details-box h1{
+
+.house-details-box h1 {
     color: var(--black);
     font-size: var(--fs-lg);
     font-weight: bold;
 }
-.house-details-box h2{
+
+.house-details-box h2 {
     color: var(--black);
     font-size: var(--fs-md);
     font-weight: bold;
 }
+
 .house-details-box p {
     color: var(--grey);
     text-align: justify;
 }
+
 .house-details-box .rating i {
-    font-size: var(--fs-md);
+    font-size: var(--fs-md) !important;
 }
-.house-details-box li {
-    font-size: var(--fs-md);
+
+.details-box {
+    background-color: var(--blue-dark);
+    border-radius: var(--border-radius);
 }
-.house-details-box li span{
+.details-box p {
+    color: var(--white);
+}
+.details-box p span {
     font-weight: bold;
 }
 /* owners */
-.box-owner{
+.box-owner {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
 }
-.box-owner h1{
+
+.box-owner h1 {
     font-size: var(--fs-lg);
 }
-.owner{
-  
-}
-.owner img{
+
+
+.owner img {
     width: 50px;
-    height:50px;
+    height: 50px;
     border-radius: 50%;
 }
-.owner h1{
+
+.owner h1 {
     font-size: var(--fs-md);
     text-transform: uppercase;
     font-weight: 700;
+}
+
+@media (max-width: 992px) {
+    .home h1 {
+        font-size: var(--fs-xl);
+    }
+     p {
+        text-align: justify !important;
+    }
+
 }

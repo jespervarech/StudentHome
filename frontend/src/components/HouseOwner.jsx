@@ -2,7 +2,7 @@ import React from "react";
 
 function HouseOwner() {
   return (
-    <div className="box-owner  p-2 px-3 ">
+    <div className="box-owner py-2 px-3">
       <h1>Proprety Agents</h1>
       <div className="owner d-flex flex-row align-items-center justify-content-between">
         <div className="d-flex flex-row align-items-center">

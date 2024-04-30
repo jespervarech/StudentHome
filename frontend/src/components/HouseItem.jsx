@@ -1,22 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Reviews from "./Reviews";
 
 function HouseItem({ house }) {
   return (
-    <div className=" col-md-4 my-3 g-4 d-flex justify-content-center">
+    <div className="col-md-4 col-lg-3 my-3 g-4 d-flex justify-content-center">
       <Link className="link " to={`/houseDetails/${house.Identifiant}`}>
-        <div className="house-box  w-100">
+        <div className="house-box h-100  w-100">
           <img src={house?.image} />
           <div className="px-3 py-2">
             <div className="d-flex flex-row justify-content-between ">
               <h1>{house.Superficie}</h1>
-              <span className="rating">
-                <i class="fa-solid fa-star true"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-              </span>
+              <Reviews rating={house.Rating} />
             </div>
             <h2>{house.Adresse}</h2>
             <p>{house.Description}</p>
