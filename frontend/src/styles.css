@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --black: #121212;
+    --white: #fff;
+    --grey: #6f736f;
+    --blue-light: #00E0C7;
+    --blue: #009394;
+    --blue-dark: #006270;
+    --fs-xxl: 60px;
+    --fs-xl: 44px;
+    --fs-lg: 30px;
+    --fs-md: 16px;
+    --fs-sm: 14px;
+    --fs-xs: 22px;
+    --fs-xxs: 10px;
+    --transition: .5s ease;
+    --shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    --nav-hight: 50px;
+    --border-radius: 10px;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    background-color: var(--white);
+    width: 100vw;
+    overflow-x: hidden;
+}
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--blue-dark) var(--white);
+}
+
+.link {
+    color: var(--black);
+    text-decoration: none;
+}
+ul{
+    list-style: none !important;
+}
+input,
+select {
+    border-radius: var(--border-radius) !important;
+}
+
+input:focus,
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+button{
+    background-color: var(--blue);
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--white);
+    transition: var(--transition);
+}
+button:hover{
+    background-color: var(--blue-dark);
+}
+/* nav */
+.nav {
+    height: var(--nav-hight);
+    background-color: var(--white);
+}
+
+
+.nav .logo {
+
+    font-size: var(--fs-lg) !important;
+    font-weight: bolder !important;
+    color: var(--black);
+
+}
+
+.nav .logo span {
+    color: var(--blue-light);
+}
+
+.nav .nav-link {
+    color: var(--black);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    transition: var(--transition);
+    border-radius: var(--border-radius);
+}
+
+.nav .nav-link:hover {
+    color: var(--blue);
+}
+
+/* home */
+.home {
+    text-align: center;
+    min-height: 100vh;
+}
+
+.bg-home {
+    margin-top: var(--nav-hight);
+    height: 90vh;
+    width: inherit;
+    background: url("./img/bg.jpg") top center;
+    background-size: cover;
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(8px);
+}
+
+.home h1 {
+    color: var(--white);
+    font-weight: bold;
+    font-size: var(--fs-xxl);
+}
+
+.home p {
+    color: var(--white);
+    font-size: var(--fs-md);
+}
+
+@media (max-width: 992px) {
+    .home h1 {
+        font-size: var(--fs-xl);
+    }
+
+}
+
+.form-control {
+    background-color: var(--white) !important;
+    color: var(--grey);
+}
+
+.search-icon {
+    background-color: var(--blue-light);
+    color: var(--white);
+    font-size: var(--fs-lg);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.search-icon:hover {
+    background-color: var(--blue);
+}
+
+/* house list */
+.house-list {
+    min-height: 100vh;
+}
+.house-list h1{
+    text-align: center;
+    color: var(--black);
+    font-size: var(--fs-lg);
+}
+.house-list p{
+    text-align: center;
+    color: var(--grey);
+    font-size: var(--fs-md);
+}
+.house-box {
+    border-radius: var(--border-radius);
+}
+.house-box:hover{
+    box-shadow: var(--shadow);
+}
+
+
+.house-box img {
+    border-radius: var(--border-radius) var(--border-radius) 0% 0%;
+    width: 100%;
+    height: 25rem;
+    object-fit: cover;
+}
+
+.house-box h1 {
+    color: var(--black);
+    font-size: var(--fs-md);
+    font-weight: bold;
+}
+
+.house-box .rating i {
+    color: var(--blue);
+}
+
+.house-box .rating i.true {
+    color: var(--blue-light);
+}
+
+.house-box h2 {
+    color: var(--black);
+    font-size: var(--fs-md);
+    font-weight: bold;
+}
+
+.house-box p {
+    text-align: justify;
+    color: var(--grey);
+    font-size: var(--fs-sm);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.house-box .price-box {
+    background-color: var(--blue-dark);
+    border-radius: var(--border-radius);
+}
+
+.house-box .price-box p {
+    color: var(--white);
+    font-size: var(--fs-md);
+}
+
+.house-box .price-box p span {
+    font-weight: bolder;
+}
+.house-box .link{
+    color: var(--white);
+    font-size: var(--fs-sm);
+    text-decoration: underline;
+    text-transform: capitalize;
+}
+/* house-details */
+.house-details{
+    margin-top: var(--nav-hight);
+   
+}
+.house-details-box {
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.house-details img {
+    width: 100%;
+    height: 25rem;
+    background-position: top center;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.house-details-box h1{
+    color: var(--black);
+    font-size: var(--fs-lg);
+    font-weight: bold;
+}
+.house-details-box h2{
+    color: var(--black);
+    font-size: var(--fs-md);
+    font-weight: bold;
+}
+.house-details-box p {
+    color: var(--grey);
+    text-align: justify;
+}
+.house-details-box .rating i {
+    font-size: var(--fs-md);
+}
+.house-details-box li {
+    font-size: var(--fs-md);
+}
+.house-details-box li span{
+    font-weight: bold;
+}
+/* owners */
+.box-owner{
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.box-owner h1{
+    font-size: var(--fs-lg);
+}
+.owner{
+  
+}
+.owner img{
+    width: 50px;
+    height:50px;
+    border-radius: 50%;
+}
+.owner h1{
+    font-size: var(--fs-md);
+    text-transform: uppercase;
+    font-weight: 700;
+}
