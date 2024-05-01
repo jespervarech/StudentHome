@@ -4,7 +4,6 @@
     --black: #121212;
     --white: #fff;
     --grey: #6f736f;
-    --blue-light: #00E0C7;
     --blue: #009394;
     --blue-dark: #006270;
     --font-red: "Red Hat Text", sans-serif;
@@ -18,8 +17,8 @@
     --fs-xxs: 10px;
     --transition: .5s ease;
     --shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    --nav-hight: max-content;
-    --border-radius: 10px;
+    --nav-hight: 10vh;
+    --border-radius: 20px;
 }
 
 body {
@@ -55,7 +54,7 @@ input:focus,
 select:focus {
     outline: none !important;
     box-shadow: none !important;
-    border: 2px solid var(--blue-light) !important;
+    border: 2px solid var(--blue-dark) !important;
 }
 
 button {
@@ -81,11 +80,9 @@ button:hover {
 
 
 .nav .logo {
-
     font-size: var(--fs-lg) !important;
     font-weight: bolder !important;
     color: var(--black);
-
 }
 
 .nav .logo span {
@@ -126,22 +123,28 @@ button:hover {
 }
 
 .bg-home {
-
-    height: 100vh;
+    height: 90vh;
     width: inherit;
-    background: url("./img/bg.jpg") top center;
+    background-image: linear-gradient(to bottom, transparent 20%, var(--white) 100%), url("./img/bg.jpg");
     background-size: cover;
     border-radius: var(--border-radius);
 }
+  
 
-.home h1 {
+
+
+
+.home h2 {
     font-family: var(--font-red);
     text-transform: uppercase;
     color: var(--white);
-    font-size: var(--fs-xxl);
+    font-size: var(--fs-lg);
 }
-.home h1 span{
-    font-style: italic;
+.home h1{
+    color: var(--white);
+    font-size: var(--fs-xxl);
+    font-weight: bold;
+    text-transform: uppercase;
 }
 .home p {
     color: var(--white);
@@ -157,7 +160,7 @@ button:hover {
 }
 
 .search-icon {
-    background-color: var(--blue-light);
+    background-color: var(--blue-dark);
     font-size: var(--fs-lg);
     border-radius: var(--border-radius);
     transition: var(--transition);
@@ -201,7 +204,7 @@ button:hover {
 .house-box img {
     border-radius: var(--border-radius) var(--border-radius) 0%  0%;
     width: 100%;
-    height: 25rem;
+    height: 20rem;
     object-fit: cover;
 }
 
@@ -232,7 +235,7 @@ button:hover {
 
 .house-box .price-box {
     background-color: var(--blue-dark);
-    border-radius: var(--border-radius);
+    border-radius: 0%  0% var(--border-radius) var(--border-radius) ;
 }
 
 .house-box .price-box p {
@@ -253,8 +256,7 @@ button:hover {
 
 /* house-details */
 .house-details {
-    margin-top: var(--nav-hight);
-
+    min-height: 90vh;
 }
 
 .house-details-box {
@@ -324,10 +326,20 @@ button:hover {
     text-transform: uppercase;
     font-weight: 700;
 }
-
+/* loading */
+.loading-conatiner{
+    height: 20rem;
+}
 @media (max-width: 992px) {
     .home h1 {
+        font-family: var(--font-red);
+        text-transform: uppercase;
+        color: var(--white);
+        font-size: var(--fs-md);
+    }
+    .home h1 {
         font-size: var(--fs-xl);
+        font-weight: bold;
     }
      p {
         text-align: justify !important;

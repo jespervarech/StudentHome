@@ -5,19 +5,20 @@ import HousetList from "../components/HousetList";
 function Home() {
   return (
     <>
-      <div className=" mx-lg-5 mx-2 home    d-flex flex-column align-items-center justify-content-center">
-        <div className="bg-home bg-success px-lg-5 px-1 d-flex flex-column align-items-center justify-content-center">
-          <h1>
-            Welcome to our <br /><span>Student Housing</span> Platform
+      <div className=" mx-lg-5 mx-3 home    d-flex flex-column align-items-top justify-content-top">
+        <div className="bg-home  px-lg-5 px-1 d-flex flex-column align-items-center justify-content-center">
+          <h2 className="m-0">Welcome to our </h2> 
+          <h1 className="m-0">
+            Student Housing <span className="d-none d-lg-inline">...</span>
           </h1>
-          <p className="px-2">
+          <p className="px-2 m-0">
             Welcome to our Student Housing Platform! Find your ideal student
             home effortlessly. Browse through our listings of student-friendly
             houses, apartments, and shared accommodations. With easy search
             filters and detailed descriptions, your perfect home is just a click
             away.
-            <br /> Start your search today!
           </p>
+          <p className="text-center m-0">Start your search today!</p>
           <SearchBar />
         </div>
       </div>

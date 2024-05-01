@@ -23,7 +23,7 @@ function HouseDetails() {
     fetchHouses();
   }, [id]);
   return (
-    <div className="px-2 px-lg-5 house-details">
+    <div className=" mx-lg-5 mx-3 house-details">
       <div className="row">
         <div className="col-md-9 mb-3 ">
           <div className="house-details-box ">

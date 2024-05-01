@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { type } from "@testing-library/user-event/dist/type";
 function Navbar() {
   const [isAimationStart, setIsAnimationStart] = useState(true);
+  const location = useLocation();
   useEffect(() => {
     const handleScroll = () => {
       const navbar = document.getElementById("navbar");
-      if (window.scrollY === 0) {
-        setIsAnimationStart(true);
-      } else if (window.scrollY > window.innerHeight) {
-        navbar.classList.add("fixed-top");
-        setIsAnimationStart(true);
+      if (location.pathname === "/") {
+        if (window.scrollY === 0) {
+          setIsAnimationStart(true);
+        } else if (window.scrollY > window.innerHeight) {
+          navbar.classList.add("fixed-top");
+          setIsAnimationStart(true);
+        } else {
+          navbar.classList.remove("fixed-top");
+          setIsAnimationStart(false);
+        }
       } else {
         navbar.classList.remove("fixed-top");
-        setIsAnimationStart(false);
+        setIsAnimationStart(true);
       }
     };
 
@@ -23,7 +28,8 @@ function Navbar() {
     return () => {
       document.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [location.pathname]);
+
   const navbarAnimations = {
     hidden: {
       opacity: 0,
@@ -50,7 +56,7 @@ function Navbar() {
     >
       <div className="container-fluid">
         <Link to="/" className="link logo d-flex align-items-center">
-           Studnet<span>Home</span>
+          STUDENT<span>HOME.</span>
         </Link>
 
         <i
@@ -64,7 +70,7 @@ function Navbar() {
         ></i>
         <div
           className="offcanvas offcanvas-start"
-          tabindex="-1"
+          tabIndex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >
@@ -101,7 +107,7 @@ function Navbar() {
                   Log in
                 </Link>
               </li>
-             
+
               <li className="nav-item my-1 my-lg-0  d-flex justify-content-center text-center">
                 <Link
                   className="nav-link-button px-3 py-1"
@@ -112,8 +118,6 @@ function Navbar() {
                   Sign up
                 </Link>
               </li>
-             
-             
             </ul>
           </div>
         </div>

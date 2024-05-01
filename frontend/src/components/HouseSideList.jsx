@@ -18,7 +18,7 @@ function HouseSideList() {
     fetchHouses();
   }, []);
   return (
-      <div className="box-owner py-2 px-3 my-3 ">
+      <div className="box-owner py-2 px-3 mt-3 ">
         <h1>Latest Houses</h1>
         {houses.slice(0, 5).map((house, index) => (
           <div className="owner my-3 d-flex flex-row align-items-center justify-content-between">
