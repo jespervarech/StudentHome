@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import logo from "../img/logo.png"
 function Navbar() {
   const [isAimationStart, setIsAnimationStart] = useState(true);
   const location = useLocation();
@@ -56,7 +57,7 @@ function Navbar() {
     >
       <div className="container-fluid">
         <Link to="/" className="link logo d-flex align-items-center">
-          STUDENT<span>HOME.</span>
+         <img src={logo} alt="" srcset="" />
         </Link>
 
         <i
@@ -99,7 +100,7 @@ function Navbar() {
               <li className="nav-item my-1 my-lg-0 d-flex justify-content-center text-center">
                 <Link
                   className="nav-link px-3 "
-                  to="/"
+                  to="/login"
                   activeclassname="active"
                   exact="true"
                   aria-current="page"

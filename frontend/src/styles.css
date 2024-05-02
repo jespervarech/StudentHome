@@ -79,12 +79,10 @@ button:hover {
 }
 
 
-.nav .logo {
-    font-size: var(--fs-lg) !important;
-    font-weight: bolder !important;
-    color: var(--black);
-}
 
+.nav .logo img{
+    width: 250px;
+}
 .nav .logo span {
     color: var(--blue);
 }
@@ -196,8 +194,8 @@ button:hover {
     transition: var(--transition);
 }
 
-.house-box:hover {
-    transform: translateY(10px);
+.house-box:hover  :not(:hover){
+    opacity: .9;
 }
 
 

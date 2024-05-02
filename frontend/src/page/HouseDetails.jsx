@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import HouseOwner from "../components/HouseOwner";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import HouseSideList from "../components/HouseSideList";
 import Reviews from "../components/Reviews";
 
@@ -66,8 +66,10 @@ function HouseDetails() {
                   </p>
                 </span>
               </div>
+              <Link className="link" to="/"><button className="w-100 px-3 py-2 mt-3">Reserve Now</button></Link>
             </div>
           </div>
+        
         </div>
         <div className="col-md-3">
           <HouseOwner />
