@@ -49,7 +49,9 @@ select {
     border-radius: var(--border-radius) !important;
 
 }
-
+p{
+    font-size: var(--fs-md);
+}
 input:focus,
 select:focus {
     outline: none !important;
@@ -328,6 +330,39 @@ button:hover {
 .loading-conatiner{
     height: 20rem;
 }
+/* forms */
+.form-container {
+    min-height: 100vh;
+    background-color: var(--blue-dark);
+}
+.form-container img{
+    width: 5rem;
+}
+
+.form-box{
+    width: 30rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+   background-color: var(--white);
+}
+.form-box h1{
+    color: var(--blue-dark);
+    font-size: var(--fs-lg);
+    font-weight: bold;
+    font-family: var(--font-red);
+    text-transform: uppercase;
+}
+.form-box p{
+    text-align: center;
+    color: var(--grey);
+    font-size: var(--fs-sm);
+}
+.form-box p .link{
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-weight: bold;
+    color: var(--blue-dark);
+}
 @media (max-width: 992px) {
     .home h1 {
         font-family: var(--font-red);
@@ -338,9 +373,6 @@ button:hover {
     .home h1 {
         font-size: var(--fs-xl);
         font-weight: bold;
-    }
-     p {
-        text-align: justify !important;
     }
 
 }

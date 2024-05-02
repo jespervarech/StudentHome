@@ -8,6 +8,8 @@ import Reviews from "../components/Reviews";
 function HouseDetails() {
   const { id } = useParams();
   const [house, setHouse] = useState([]);
+ 
+
   useEffect(() => {
     const fetchHouses = async () => {
       try {
@@ -22,6 +24,11 @@ function HouseDetails() {
 
     fetchHouses();
   }, [id]);
+  useEffect(() => {
+    if (house) {
+      document.title = `House Details - ${house.Superficie}`;
+    }
+  }, [house]);
   return (
     <div className=" mx-lg-5 mx-3 house-details">
       <div className="row">

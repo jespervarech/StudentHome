@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import HousetList from "../components/HousetList";
 
 function Home() {
+  useEffect(() => {
+    document.title = "Student Home";
+  }, []);
   return (
     <>
       <div className=" mx-lg-5 mx-3 home    d-flex flex-column align-items-top justify-content-top">
