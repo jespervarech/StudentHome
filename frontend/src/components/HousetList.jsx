@@ -1,19 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import HouseItem from "./HouseItem";
-
+import Pagination from "./Pagination";
+const HOUSE_PER_PAGE = 6;
 function HouseList() {
-  const [houses, setHouses] = useState([]);
-  const [displayCount, setDisplayCount] = useState(4);
+  const [houses, setHouses] = useState([[]]);
   const listref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [HouseCount, setHouseCount] = useState();
+  const pages = Math.ceil(HouseCount / HOUSE_PER_PAGE);
   useEffect(() => {
     const fetchHouses = async () => {
       try {
         setIsLoading(true);
+        const HouseCountResponse = await axios.get(
+          "https://realstatestudent.onrender.com/logement/alllogement"
+        );
+        setHouseCount(HouseCountResponse.data);
+
         const response = await axios.get(
-          "https://662fc85d43b6a7dce310bc64.mockapi.io/api/house/House"
+          `https://realstatestudent.onrender.com/logement/afficherAllLogementByindex?index=${currentPage}`
         );
         setHouses(response.data);
       } catch (error) {
@@ -24,17 +31,7 @@ function HouseList() {
     };
 
     fetchHouses();
-  }, []);
-
-  const handleShowMore = () => {
-    setDisplayCount((prevCount) => prevCount + 4);
-    listref.current.scrollIntoView({ behavior: "smooth", block: "end" });
-  };
-
-  const handleShowLess = () => {
-    setDisplayCount(4);
-    listref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  }, [currentPage]);
 
   return (
     <div id="list" className="px-3 px-lg-5 house-list py-3 d-flex flex-column">
@@ -44,30 +41,26 @@ function HouseList() {
         From single rooms to shared spaces, each listing offers comfortable
         living with flexible lease options. Find your ideal student home now!"
       </p>
-      
+
       {isLoading ? (
         <div className="loading-conatiner w-100 d-flex flex-column justify-content-center align-items-center ">
-        <div class="spinner-border  " role="status">
-          <span class="visually-hidden">Loading...</span>
+          <div class="spinner-border  " role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <strong className="mt-1">Loading...</strong>
         </div>
-        <strong className="mt-1">Loading...</strong>
-      </div>
       ) : (
         <>
           <div ref={listref} className="row  ">
-            {houses.slice(0, displayCount).map((house, index) => (
+            {houses.map((house, index) => (
               <HouseItem key={index} house={house} />
             ))}
           </div>
-          {houses && displayCount < houses.length ? (
-            <button className="px-3 py-2 mt-3 " onClick={handleShowMore}>
-              Show More
-            </button>
-          ) : (
-            <button className="px-3 py-2 mt-3 " onClick={handleShowLess}>
-              Show Less
-            </button>
-          )}
+          <Pagination
+            pages={pages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </>
       )}
     </div>
