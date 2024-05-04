@@ -11,7 +11,10 @@ function HouseItem({ house }) {
             <img src={house?.image} />
             <div className="px-3 py-2 w-100">
               <div className="d-flex flex-row justify-content-between">
-                <h1><i className="fa-solid fa-location-dot me-3"></i>{house.ville?.nom}</h1>
+                <h1>
+                  <i className="fa-solid fa-location-dot me-3"></i>
+                  {house.id} {house.ville?.nom}
+                </h1>
                 <Reviews rating={house.noteGlobale} />
               </div>
               <h2>{house.adresse}</h2>
