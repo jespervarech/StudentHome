@@ -8,13 +8,12 @@ import Reviews from "../components/Reviews";
 function HouseDetails() {
   const { id } = useParams();
   const [house, setHouse] = useState([]);
- 
 
   useEffect(() => {
     const fetchHouses = async () => {
       try {
         const response = await axios.get(
-          `https://662fc85d43b6a7dce310bc64.mockapi.io/api/house/House/${id}`
+          `https://realstatestudent.onrender.com/logement/afficherlogmentbyid?id=${id}`
         );
         setHouse(response.data);
       } catch (error) {
@@ -26,7 +25,7 @@ function HouseDetails() {
   }, [id]);
   useEffect(() => {
     if (house) {
-      document.title = `House Details - ${house.Superficie}`;
+      document.title = `House Details - ${house.ville?.nom}`;
     }
   }, [house]);
   return (
@@ -37,20 +36,20 @@ function HouseDetails() {
             <img src={house?.image} />
             <div className="px-3 py-2 ">
               <div className="d-flex flex-row justify-content-between ">
-                <h1>{house.Prix}$</h1>
-                <Reviews rating={house.Rating} />
+                <h1>{house.prix}$</h1>
+                <Reviews rating={house.noteGlobale} />
               </div>
               <h2>
-                {house.Superficie} {house.Adresse}
+                {house.Superficie} {house.adresse}
               </h2>
-              <p>{house.Description}</p>
+              <p>{house.description}</p>
               <div className="details-box py-2 px-3  d-flex flex-column flex-lg-row justify-content-lg-between  w-100 ">
                 <span>
                   <p className="m-0">
-                    <span>Price : </span> {house.Prix}
+                    <span>Price : </span> {house.prix}
                   </p>
                   <p className="m-0">
-                    <span>Disponible : </span> {house.Disponible ? "Yes" : "No"}
+                    <span>Disponible : </span> {house.disponible ? "Yes" : "No"}
                   </p>
                 </span>
                 <span>
@@ -66,20 +65,21 @@ function HouseDetails() {
                 <span>
                   <p className="m-0">
                     <span>Rooms : </span>
-                    {house.Rooms}
+                    {house.nbrDechambre}
                   </p>
                   <p className="m-0">
-                    <span>Bathrooms : </span> {house.Bathrooms}
+                    <span>Baths : </span> {house.nbrlit}
                   </p>
                 </span>
               </div>
-              <Link className="link" to="/"><button className="w-100 px-3 py-2 mt-3">Reserve Now</button></Link>
+              <Link className="link" to="/">
+                <button className="w-100 px-3 py-2 mt-3">Reserve Now</button>
+              </Link>
             </div>
           </div>
-        
         </div>
         <div className="col-md-3">
-          <HouseOwner />
+          <HouseOwner owner={house?.proprietaire} />
           <HouseSideList />
         </div>
       </div>

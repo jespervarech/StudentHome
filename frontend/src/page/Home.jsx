@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import SearchBar from "../components/SearchBar";
 import HousetList from "../components/HousetList";
+import SearchHouses from "./modals/SearchHouses";
 
 function Home() {
   useEffect(() => {
@@ -10,7 +10,7 @@ function Home() {
     <>
       <div className=" mx-lg-5 mx-3 home    d-flex flex-column align-items-top justify-content-top">
         <div className="bg-home  px-lg-5 px-1 d-flex flex-column align-items-center justify-content-center">
-          <h2 className="m-0">Welcome to our </h2> 
+          <h2 className="m-0">Welcome to our </h2>
           <h1 className="m-0">
             Student Housing <span className="d-none d-lg-inline">...</span>
           </h1>
@@ -22,7 +22,15 @@ function Home() {
             away.
           </p>
           <p className="text-center m-0">Start your search today!</p>
-          <SearchBar />
+          <button
+            type="button"
+            class="px-3 py-2 mt-5"
+            data-bs-toggle="modal"
+            data-bs-target="#searchHouses"
+          >
+            Search NOW <i className="fa-solid fa-magnifying-glass ms-2"></i>
+          </button>
+          <SearchHouses />
         </div>
       </div>
       <HousetList />

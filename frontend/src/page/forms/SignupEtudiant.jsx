@@ -8,6 +8,7 @@ function SignupEtudiant() {
       </p>
       <div className="form-floating mb-3">
         <input
+          required={true}
           type="text"
           className="form-control"
           id="name"
@@ -17,6 +18,7 @@ function SignupEtudiant() {
       </div>
       <div className="form-floating mb-3">
         <input
+          required={true}
           type="email"
           className="form-control"
           id="email"
@@ -26,6 +28,7 @@ function SignupEtudiant() {
       </div>
       <div className="form-floating mb-3">
         <input
+          required={true}
           type="password"
           className="form-control"
           id="password"
@@ -35,6 +38,7 @@ function SignupEtudiant() {
       </div>
       <div className="form-floating mb-3">
         <input
+          required={true}
           type="password"
           className="form-control"
           id="conpassword"

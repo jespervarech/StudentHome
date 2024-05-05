@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import logo from "../img/logo.png";
 import UpdateProfile from "../page/modals/UpdateProfile";
 function Navbar() {
+  const [authenticated, setAuthenticated] = useState(false);
   const [isAimationStart, setIsAnimationStart] = useState(true);
   const location = useLocation();
   useEffect(() => {
@@ -48,6 +49,16 @@ function Navbar() {
     },
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      setAuthenticated(true);
+    }
+  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthenticated(false);
+  };
   return (
     <>
       <motion.nav
@@ -59,7 +70,7 @@ function Navbar() {
       >
         <div className="container-fluid">
           <Link to="/" className="link logo d-flex align-items-center">
-            <img src={logo} alt="" srcset="" />
+            <img src={logo} alt="Student Home" />
           </Link>
 
           <i
@@ -99,62 +110,73 @@ function Navbar() {
                     Home
                   </Link>
                 </li>
-                <li className="nav-item dropdown d-flex flex-column  px-5 px-lg-0 my-1 my-lg-0  d-flex justify-content-center text-center">
-                  <div
-                    type="button"
-                    className="nav-link  px-3  dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Zakaria SAKI
-                  </div>
-                  <ul className="dropdown-menu  dropdown-menu-end px-1">
-                    <span className="dropdown-item user-info">
-                      <i className=" me-2 fa-solid fa-user"></i>
-                      sakizakaria7@gmail.com
-                    </span>
-                    <span className="dropdown-item  user-info">
-                      <i className=" me-2 fa-solid fa-phone"></i>0631554079
-                    </span>
-                    <span className="dropdown-item ">
-                      <button
-                        data-bs-toggle="modal"
-                        data-bs-target="#updateProfile"
-                        className=" px-2 px-lg-4 py-1 mt-3 w-100 d-flex align-items-center justify-content-between"
+                {authenticated ? (
+                  <>
+                    <li className="nav-item dropdown d-flex flex-column  px-5 px-lg-0 my-1 my-lg-0  d-flex justify-content-center text-center">
+                      <div
+                        type="button"
+                        className="nav-link  px-3  dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                       >
-                        Edit Profile<i class="fa-solid fa-pen-to-square "></i>
-                      </button>
-                    </span>
-                    <span className="dropdown-item ">
-                      <button className=" px-2 px-lg-4 py-1  w-100 d-flex align-items-center justify-content-between">
-                        Logout<i class="fa-solid fa-right-from-bracket "></i>
-                      </button>
-                    </span>
-                  </ul>
-                </li>
+                        Zakaria SAKI
+                      </div>
+                      <ul className="dropdown-menu  dropdown-menu-end px-1">
+                        <span className="dropdown-item user-info">
+                          <i className=" me-2 fa-solid fa-user"></i>
+                          sakizakaria7@gmail.com
+                        </span>
+                        <span className="dropdown-item  user-info">
+                          <i className=" me-2 fa-solid fa-phone"></i>0631554079
+                        </span>
+                        <span className="dropdown-item ">
+                          <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#updateProfile"
+                            className=" px-2 px-lg-4 py-1 mt-3 w-100 d-flex align-items-center justify-content-between"
+                          >
+                            Edit Profile
+                            <i className="fa-solid fa-pen-to-square "></i>
+                          </button>
+                        </span>
+                        <span className="dropdown-item ">
+                          <button
+                            onClick={handleLogout}
+                            className=" px-2 px-lg-4 py-1  w-100 d-flex align-items-center justify-content-between"
+                          >
+                            Logout
+                            <i className="fa-solid fa-right-from-bracket "></i>
+                          </button>
+                        </span>
+                      </ul>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="nav-item my-1 my-lg-0 d-flex justify-content-center text-center">
+                      <Link
+                        className="nav-link px-3 "
+                        to="/login"
+                        activeclassname="active"
+                        exact="true"
+                        aria-current="page"
+                      >
+                        Log in
+                      </Link>
+                    </li>
 
-                {/* <li className="nav-item my-1 my-lg-0 d-flex justify-content-center text-center">
-                <Link
-                  className="nav-link px-3 "
-                  to="/login"
-                  activeclassname="active"
-                  exact="true"
-                  aria-current="page"
-                >
-                  Log in
-                </Link>
-              </li>
-
-              <li className="nav-item my-1 my-lg-0  d-flex justify-content-center text-center">
-                <Link
-                  className="nav-link-button px-3 py-1"
-                  to="/signup"
-                  exact="true"
-                  aria-current="page"
-                >
-                  Sign up
-                </Link>
-              </li> */}
+                    <li className="nav-item my-1 my-lg-0  d-flex justify-content-center text-center">
+                      <Link
+                        className="nav-link-button px-3 py-1"
+                        to="/signup"
+                        exact="true"
+                        aria-current="page"
+                      >
+                        Sign up
+                      </Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

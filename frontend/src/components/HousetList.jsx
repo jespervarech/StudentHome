@@ -5,7 +5,6 @@ import Pagination from "./Pagination";
 const HOUSE_PER_PAGE = 6;
 function HouseList() {
   const [houses, setHouses] = useState([[]]);
-  const listref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [HouseCount, setHouseCount] = useState();
@@ -44,15 +43,15 @@ function HouseList() {
 
       {isLoading ? (
         <div className="loading-conatiner w-100 d-flex flex-column justify-content-center align-items-center ">
-          <div class="spinner-border  " role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-border  " role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
           <strong className="mt-1">Loading...</strong>
         </div>
       ) : (
         <>
-          <div ref={listref} className="row  ">
-            {houses.map((house, index) => (
+          <div className="row  ">
+            {houses?.map((house, index) => (
               <HouseItem key={index} house={house} />
             ))}
           </div>

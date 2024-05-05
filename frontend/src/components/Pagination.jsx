@@ -14,14 +14,14 @@ function Pagination({ pages, currentPage, setCurrentPage }) {
     >
       <ul className="pagination d-flex align-items-center ">
         <li className={`page-item ${currentPage === 1 ? "d-none" : ""}`}>
-            <Link
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-              className="link shadow-none px-3 py-1 "
-              tabIndex="-1"
-              aria-disabled="true"
-            >
-              <i class="fa-solid fa-circle-chevron-left"></i>
-            </Link>
+          <Link
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="link shadow-none px-3 py-1 "
+            tabIndex="-1"
+            aria-disabled="true"
+          >
+            <i className="fa-solid fa-circle-chevron-left"></i>
+          </Link>
         </li>
         {generatedPages.map((page) => (
           <li
@@ -37,12 +37,12 @@ function Pagination({ pages, currentPage, setCurrentPage }) {
           </li>
         ))}
         <li className={`page-item ${currentPage === pages ? "d-none" : ""}`}>
-            <Link
-              onClick={() => setCurrentPage((next) => next + 1)}
-              className="link shadow-none px-3 py-1 "
-            >
-             <i class="fa-solid fa-circle-chevron-right"></i>
-            </Link>
+          <Link
+            onClick={() => setCurrentPage((next) => next + 1)}
+            className="link shadow-none px-3 py-1 "
+          >
+            <i className="fa-solid fa-circle-chevron-right"></i>
+          </Link>
         </li>
       </ul>
     </div>
