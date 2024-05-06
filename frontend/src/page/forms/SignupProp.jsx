@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import ErrorAlert from "./ErrorAlert";
+import { useNavigate } from "react-router-dom";
 
 function SignupProp() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -88,7 +90,7 @@ function SignupProp() {
             typePropritaire: "particulier",
           }
         );
-        console.log(response.data);
+        navigate("/login");
       } catch (error) {
         console.error("Error fetching houses:", error);
       } finally {
@@ -190,7 +192,7 @@ function SignupProp() {
       {conPasswordError && <ErrorAlert error={conPasswordError} />}
       <button type="submit" className="px-5 py-1 mb-3">
         {isLoading ? (
-          <div className="spinner-border" role="status">
+          <div className="spinner-border spinner-border-sm" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         ) : (

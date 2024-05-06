@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar";
 import Home from "./page/Home";
 import HouseDetails from "./page/HouseDetails";
+import HousesListBySearch from "./page/HousesListBySearch";
 import Forgot from "./page/forms/Forgot";
 import Login from "./page/forms/Login";
 import Reset from "./page/forms/Reset";
@@ -33,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/houseDetails/:id" element={<HouseDetails />} />
+        <Route path="/houseList/:search" element={<HousesListBySearch />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotPassword" element={<Forgot />} />

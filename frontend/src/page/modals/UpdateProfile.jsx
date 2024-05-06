@@ -13,11 +13,11 @@ function UpdateProfile() {
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="updateProfileLabel">
-             Update Profil
+              Update Profil
             </h1>
             <i
               type="button"
-           className="fa-solid fa-xmark"
+              className="fa-solid fa-xmark"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></i>
@@ -61,11 +61,7 @@ function UpdateProfile() {
             </div>
           </div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="px-3 py-1"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" className="px-3 py-1" data-bs-dismiss="modal">
               Close
             </button>
             <button type="button" className="px-3 py-1">

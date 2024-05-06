@@ -3,7 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import logo from "../img/logo.png";
 import UpdateProfile from "../page/modals/UpdateProfile";
+import AddHouse from "../page/modals/AddHouse";
 function Navbar() {
+  const [token, setToken] = useState("");
+  const [id, setId] = useState(null);
+  const [email, setEmail] = useState("");
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [phone, setPhone] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [isAimationStart, setIsAnimationStart] = useState(true);
   const location = useLocation();
@@ -50,8 +57,15 @@ function Navbar() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
+    const userString = localStorage.getItem("StudentHomeUser");
+    if (userString) {
+      const userData = JSON.parse(userString);
+      setToken(userData.accessToken);
+      setId(userData.id);
+      setEmail(userData.email);
+      setNom(userData.nom);
+      setPrenom(userData.pronm);
+      setPhone(userData.numTel);
       setAuthenticated(true);
     }
   }, []);
@@ -69,7 +83,7 @@ function Navbar() {
         className="navbar nav  navbar-expand-lg px-3 px-lg-5"
       >
         <div className="container-fluid">
-          <Link to="/" className="link logo d-flex align-items-center">
+          <Link to="/" className="link logo d-flex">
             <img src={logo} alt="Student Home" />
           </Link>
 
@@ -112,6 +126,18 @@ function Navbar() {
                 </li>
                 {authenticated ? (
                   <>
+                    <li className="nav-item my-1 my-lg-0 cursor-pointer d-flex justify-content-center text-center">
+                      <span
+                        data-bs-toggle="modal"
+                        data-bs-target="#addHouse"
+                        className="nav-link px-3 "
+                        activeclassname="active"
+                        exact="true"
+                        aria-current="page"
+                      >
+                        Add House
+                      </span>
+                    </li>
                     <li className="nav-item dropdown d-flex flex-column  px-5 px-lg-0 my-1 my-lg-0  d-flex justify-content-center text-center">
                       <div
                         type="button"
@@ -119,15 +145,17 @@ function Navbar() {
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                       >
-                        Zakaria SAKI
+                        <span className="text-capitalize">{prenom} </span>{" "}
+                        <span className="text-uppercase">{nom}</span>
                       </div>
                       <ul className="dropdown-menu  dropdown-menu-end px-1">
                         <span className="dropdown-item user-info">
                           <i className=" me-2 fa-solid fa-user"></i>
-                          sakizakaria7@gmail.com
+                          {email}
                         </span>
                         <span className="dropdown-item  user-info">
-                          <i className=" me-2 fa-solid fa-phone"></i>0631554079
+                          <i className=" me-2 fa-solid fa-phone"></i>
+                          {phone}
                         </span>
                         <span className="dropdown-item ">
                           <button
@@ -182,7 +210,8 @@ function Navbar() {
           </div>
         </div>
       </motion.nav>
-      <UpdateProfile />
+      <UpdateProfile id={id} />
+      <AddHouse token={token} />
     </>
   );
 }

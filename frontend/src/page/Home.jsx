@@ -24,7 +24,7 @@ function Home() {
           <p className="text-center m-0">Start your search today!</p>
           <button
             type="button"
-            class="px-3 py-2 mt-5"
+            className="px-3 py-2 mt-5"
             data-bs-toggle="modal"
             data-bs-target="#searchHouses"
           >

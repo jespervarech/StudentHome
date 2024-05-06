@@ -1,19 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Reviews from "../components/Reviews";
 import axios from "axios";
-import HouseItem from "./HouseItem";
-import Pagination from "./Pagination";
-const HOUSE_PER_PAGE = 8;
-function HouseList() {
+import Pagination from "../components/Pagination";
+import HouseItemBySearch from "../components/HouseItemBySearch";
+import ErrorAlert from "./forms/ErrorAlert";
+
+function HousesListBySearch() {
+  const HOUSE_PER_PAGE = 8;
   const [houses, setHouses] = useState([[]]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [HouseCount, setHouseCount] = useState();
   const pages = Math.ceil(HouseCount / HOUSE_PER_PAGE);
+  const { search } = useParams();
   useEffect(() => {
     const fetchHouses = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(
-          `https://realstatestudent.onrender.com/logement/afficherAllLogementByindex?index=${currentPage}`
+          `https://realstatestudent.onrender.com/logement/afficherAllLogementBySearchandIndex?search=${search}&index=${currentPage}`
         );
         setHouses(response.data);
       } catch (error) {
@@ -23,28 +29,34 @@ function HouseList() {
       }
     };
 
-    fetchHouses();
+    if (search.trim() !== "") fetchHouses();
   }, [currentPage]);
   useEffect(() => {
     const getCount = async () => {
       setIsLoading(true);
       const HouseCountResponse = await axios.get(
-        "https://realstatestudent.onrender.com/logement/alllogement"
+        `https://realstatestudent.onrender.com/logement/nbrLogmentSearch?search=${search}`
       );
       setHouseCount(HouseCountResponse.data);
     };
     getCount();
   }, []);
-
+  useEffect(() => {
+    if (search) {
+      document.title = `Search - ${search}`;
+    }
+  }, [search]);
   return (
-    <div id="list" className="px-3 px-lg-5 house-list pb-3 d-flex flex-column">
-      <h1>Discover Your Ideal Student Home</h1>
-      <p>
-        Explore our curated selection of rental houses tailored for students.
-        From single rooms to shared spaces, each listing offers comfortable
-        living with flexible lease options. Find your ideal student home now!"
-      </p>
-
+    <div className="houseListBySearch mx-lg-5 mx-3">
+      <h1 className="page-path mb-3">
+        <span className="one">
+          Home<i className="fa-solid fa-chevron-right ms-1"></i>{" "}
+        </span>
+        <span className="ms-2 two">
+          Search List<i className="fa-solid fa-chevron-right ms-1"></i>{" "}
+        </span>
+        <span className="ms-2 three">{search}</span>
+      </h1>
       {isLoading ? (
         <div className="loading-conatiner w-100 d-flex flex-column justify-content-center align-items-center ">
           <div className="spinner-border  " role="status">
@@ -52,11 +64,11 @@ function HouseList() {
           </div>
           <strong className="mt-1">Loading...</strong>
         </div>
-      ) : (
+      ) : houses.length > 0 ? (
         <>
-          <div className="row  ">
+          <div className="row ">
             {houses?.map((house, index) => (
-              <HouseItem key={index} house={house} />
+              <HouseItemBySearch key={index} house={house} />
             ))}
           </div>
           <Pagination
@@ -65,9 +77,11 @@ function HouseList() {
             setCurrentPage={setCurrentPage}
           />
         </>
+      ) : (
+        <ErrorAlert error={`No results about "${search}"`} />
       )}
     </div>
   );
 }
 
-export default HouseList;
+export default HousesListBySearch;

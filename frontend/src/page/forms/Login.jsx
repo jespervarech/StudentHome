@@ -44,8 +44,9 @@ function Login() {
           typePropritaire: "particulier",
         }
       );
-      if (response.data.accessToken) {
-        localStorage.setItem("accessToken", response.data.accessToken);
+      if (response.data) {
+        console.log(response.data)
+        localStorage.setItem("StudentHomeUser", JSON.stringify(response.data));
         navigate("/");
       } else {
         console.error("Token not found in response:", response.data);

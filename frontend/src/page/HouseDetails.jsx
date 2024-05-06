@@ -30,6 +30,17 @@ function HouseDetails() {
   }, [house]);
   return (
     <div className=" mx-lg-5 mx-3 house-details">
+      <h1 className="page-path mb-3">
+        <span className="one"> 
+          Home<i className="fa-solid fa-chevron-right ms-1"></i>{" "}
+        </span>
+        <span className="ms-2 two">
+          House details<i className="fa-solid fa-chevron-right ms-1"></i>{" "}
+        </span>
+        <span className="ms-2 three">
+          {house.ville?.nom} {house.adresse}
+        </span>
+      </h1>
       <div className="row">
         <div className="col-md-9 mb-3 ">
           <div className="house-details-box ">

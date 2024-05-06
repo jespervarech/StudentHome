@@ -3,6 +3,7 @@ import icon from "../../img/icon.png";
 import { Link } from "react-router-dom";
 import SignupProp from "./SignupProp";
 import SignupEtudiant from "./SignupEtudiant";
+import ErrorAlert from "./ErrorAlert";
 
 function Signup() {
   const [isSelected, setIsSelected] = useState(false);
@@ -57,9 +58,7 @@ function Signup() {
                 <label htmlFor="userType">User Type</label>
               </div>
               {isUserTypeEmpty && (
-                <div className="alert alert-danger" role="alert">
-                  Please choose your user type
-                </div>
+                   <ErrorAlert error=" Please choose your user type" />
               )}
               <button
                 type="button"
