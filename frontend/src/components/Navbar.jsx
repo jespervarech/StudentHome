@@ -4,13 +4,12 @@ import { motion } from "framer-motion";
 import logo from "../img/logo.png";
 import UpdateProfile from "../page/modals/UpdateProfile";
 import AddHouse from "../page/modals/AddHouse";
+import axios from "axios";
+import DeleteUser from "../page/modals/DeleteUser";
 function Navbar() {
+  const [profile, setProfile] = useState([]);
   const [token, setToken] = useState("");
   const [id, setId] = useState(null);
-  const [email, setEmail] = useState("");
-  const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  const [phone, setPhone] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [isAimationStart, setIsAnimationStart] = useState(true);
   const location = useLocation();
@@ -62,16 +61,30 @@ function Navbar() {
       const userData = JSON.parse(userString);
       setToken(userData.accessToken);
       setId(userData.id);
-      setEmail(userData.email);
-      setNom(userData.nom);
-      setPrenom(userData.pronm);
-      setPhone(userData.numTel);
       setAuthenticated(true);
     }
   }, []);
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("StudentHomeUser");
     setAuthenticated(false);
+  };
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get(
+          `https://realstatestudent.onrender.com/proprietere/afficherByid?id=${id}`
+        );
+        setProfile(response.data);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, [token, id]);
+  const updateProfileDetails = (updatedProfile) => {
+    setProfile(updatedProfile);
   };
   return (
     <>
@@ -145,17 +158,19 @@ function Navbar() {
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                       >
-                        <span className="text-capitalize">{prenom} </span>{" "}
-                        <span className="text-uppercase">{nom}</span>
+                        <span className="text-capitalize">
+                          {profile.prenom}{" "}
+                        </span>{" "}
+                        <span className="text-uppercase">{profile.nom}</span>
                       </div>
                       <ul className="dropdown-menu  dropdown-menu-end px-1">
                         <span className="dropdown-item user-info">
                           <i className=" me-2 fa-solid fa-user"></i>
-                          {email}
+                          {profile.email}
                         </span>
                         <span className="dropdown-item  user-info">
                           <i className=" me-2 fa-solid fa-phone"></i>
-                          {phone}
+                          {profile.numeroTel}
                         </span>
                         <span className="dropdown-item ">
                           <button
@@ -174,6 +189,16 @@ function Navbar() {
                           >
                             Logout
                             <i className="fa-solid fa-right-from-bracket "></i>
+                          </button>
+                        </span>
+                        <span className="dropdown-item ">
+                          <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteUser"
+                            className=" px-2 px-lg-4 py-1  w-100 d-flex align-items-center justify-content-between"
+                          >
+                            Delete account
+                            <i class="fa-solid fa-trash"></i>
                           </button>
                         </span>
                       </ul>
@@ -210,7 +235,11 @@ function Navbar() {
           </div>
         </div>
       </motion.nav>
-      <UpdateProfile id={id} />
+      <UpdateProfile
+        profile={profile}
+        updateProfileDetails={updateProfileDetails}
+      />
+      <DeleteUser id={id} />
       <AddHouse token={token} />
     </>
   );

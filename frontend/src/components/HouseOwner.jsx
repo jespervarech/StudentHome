@@ -13,7 +13,7 @@ function HouseOwner({ owner }) {
           aria-controls="collapseExample"
           className="d-flex flex-row align-items-center w-100 curosr-pointer"
         >
-         <i class="fa-solid fa-user user-icon me-2"></i>
+         <i className="fa-solid fa-user user-icon me-2"></i>
           <div className="d-flex flex-column ms-2">
             <h1 className="m-0">
               {owner?.prenom} {owner?.nom}

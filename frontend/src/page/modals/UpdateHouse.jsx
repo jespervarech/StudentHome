@@ -1,39 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ErrorAlert from "../forms/ErrorAlert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function AddHouse({ token }) {
-  const navigate = useNavigate();
+function UpdateHouse({ house, updateHouseDetails }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [ville, setVille] = useState("");
   const [adresse, setAdresse] = useState("");
-  const [codePostal, setCodePostal] = useState("");
   const [description, setDescription] = useState("");
   const [superficie, setSuperficie] = useState(0);
   const [prix, setPrix] = useState(0);
   const [rooms, setRooms] = useState(0);
   const [beths, setBeths] = useState(0);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [image3, setImage3] = useState(null);
-  const [villeError, setVilleError] = useState("");
   const [adresseError, setAdresseError] = useState("");
-  const [codePostalError, setCodePostalError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [superficieError, setSuperficieError] = useState("");
   const [prixError, setPrixError] = useState("");
   const [roomsError, setRoomsError] = useState("");
   const [bethsError, setBethsError] = useState("");
-  const [image1Error, setImage1Error] = useState("");
+
+  useEffect(() => {
+    setAdresse(house.adresse);
+    setDescription(house.description);
+    setSuperficie(house.superficie);
+    setPrix(house.prix);
+    setRooms(house.nbrDechambre);
+    setBeths(house.nbrlit);
+  }, [house]);
+
   const validateForm = () => {
     let isValid = true;
-    if (!ville) {
-      setVilleError("Ville is required");
-      isValid = false;
-    } else {
-      setVilleError("");
-    }
     if (!description) {
       setDescriptionError("Description is required");
       isValid = false;
@@ -45,12 +40,6 @@ function AddHouse({ token }) {
       isValid = false;
     } else {
       setAdresseError("");
-    }
-    if (!codePostal) {
-      setCodePostalError("Code Postal is required");
-      isValid = false;
-    } else {
-      setCodePostalError("");
     }
     if (!superficie) {
       setSuperficieError("Superficie is required");
@@ -88,62 +77,15 @@ function AddHouse({ token }) {
     } else {
       setBethsError("");
     }
-    if (!image1) {
-      setImage1Error("Image is required");
-      isValid = false;
-    } else {
-      setImage1Error("");
-    }
     return isValid;
   };
-  const addHouseSubmit = async (e) => {
+  const updateHouse = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
       return;
     }
     try {
       setIsLoading(true);
-
-      const formData1 = new FormData();
-      formData1.append("file", image1);
-      formData1.append(
-        "upload_preset",
-        process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-      );
-      const response1 = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_USER_NAME}/image/upload`,
-        formData1
-      );
-      const imageUrl1 = response1.data.secure_url;
-
-      let imageUrl2, imageUrl3;
-      if (image2) {
-        const formData2 = new FormData(); // Create new FormData object for image2
-        formData2.append("file", image2);
-        formData2.append(
-          "upload_preset",
-          process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-        );
-        const response2 = await axios.post(
-          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_USER_NAME}/image/upload`,
-          formData2
-        );
-        imageUrl2 = response2.data.secure_url;
-      }
-
-      if (image3) {
-        const formData3 = new FormData(); // Create new FormData object for image3
-        formData3.append("file", image3);
-        formData3.append(
-          "upload_preset",
-          process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-        );
-        const response3 = await axios.post(
-          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_USER_NAME}/image/upload`,
-          formData3
-        );
-        imageUrl3 = response3.data.secure_url;
-      }
       let data = {};
       data = {
         superficie: superficie,
@@ -151,35 +93,28 @@ function AddHouse({ token }) {
         description: description,
         prix: prix,
         disponible: true,
-        villeNon: ville,
         nbrDechambre: rooms,
         nbrlit: beths,
-        codePostal: codePostal,
-        images: [],
       };
-      data.images.push(imageUrl1);
-      if (imageUrl2) {
-        data.images.push(imageUrl2);
-      }
-      if (imageUrl3) {
-        data.images.push(imageUrl3);
-      }
 
-      const apiResponse = await axios.post(
-        "https://realstatestudent.onrender.com/proprietere/ajouterLogement",
-        data,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-          },
-        }
+      const apiResponse = await axios.put(
+        `https://realstatestudent.onrender.com/logement/update/${house.id}`,
+        data
       );
 
-      document.getElementById("close").click();
-      navigate("/");
+      document.getElementById("closeUpdateHouse").click();
+      const updatedHouse = {
+        ...house,
+        adresse,
+        description,
+        superficie,
+        prix,
+        rooms,
+        beths,
+      };
+      updateHouseDetails(updatedHouse);
     } catch (error) {
-      console.error("Error adding house:", error);
+      console.error("Error updating house:", error);
     } finally {
       setIsLoading(false);
     }
@@ -188,13 +123,13 @@ function AddHouse({ token }) {
   return (
     <div
       className="modal fade"
-      id="addHouse"
+      id="updateHouse"
       tabIndex="-1"
-      aria-labelledby="addHouseLabel"
+      aria-labelledby="updateHouseLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-        <form className="modal-content" onSubmit={addHouseSubmit}>
+        <form className="modal-content" onSubmit={updateHouse}>
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="addHouseLabel">
               Add new house
@@ -209,16 +144,15 @@ function AddHouse({ token }) {
           <div className="modal-body">
             <div className="form-floating mb-3">
               <input
-                value={ville}
-                onChange={(e) => setVille(e.target.value)}
+                value={house.ville?.nom}
                 type="text"
                 className="form-control "
                 id="ville"
                 placeholder="name@example.com"
+                disabled
               />
               <label htmlFor="search">Ville </label>
             </div>
-            {villeError && <ErrorAlert error={villeError} />}
             <div className="form-floating mb-3">
               <input
                 value={adresse}
@@ -233,8 +167,8 @@ function AddHouse({ token }) {
             {adresseError && <ErrorAlert error={adresseError} />}
             <div className="form-floating mb-3">
               <input
-                value={codePostal}
-                onChange={(e) => setCodePostal(e.target.value)}
+                disabled
+                value={house.ville?.codePostal}
                 type="text"
                 className="form-control"
                 id="codepostal"
@@ -242,7 +176,6 @@ function AddHouse({ token }) {
               />
               <label htmlFor="codepostal">Code Postal </label>
             </div>
-            {codePostalError && <ErrorAlert error={codePostalError} />}
             <div className="form-floating mb-3">
               <input
                 value={superficie}
@@ -308,43 +241,11 @@ function AddHouse({ token }) {
               <label htmlFor="descrip">Description</label>
             </div>
             {descriptionError && <ErrorAlert error={descriptionError} />}
-
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setImage1(e.target.files[0])}
-                type="file"
-                className="form-control"
-                id="image1"
-                placeholder="name@example.com"
-              />
-              <label htmlFor="image1">Image (Required) </label>
-            </div>
-            {image1Error && <ErrorAlert error={image1Error} />}
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setImage2(e.target.files[0])}
-                type="file"
-                className="form-control"
-                id="image2"
-                placeholder="name@example.com"
-              />
-              <label htmlFor="image2">Image 2 (Optional) </label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setImage3(e.target.files[0])}
-                type="file"
-                className="form-control"
-                id="image3"
-                placeholder="name@example.com"
-              />
-              <label htmlFor="image3">Image 3 (Optional) </label>
-            </div>
           </div>
 
           <div className="modal-footer">
             <button
-              id="close"
+              id="closeUpdateHouse"
               type="button"
               className="px-3 py-1"
               data-bs-dismiss="modal"
@@ -358,7 +259,7 @@ function AddHouse({ token }) {
                   role="status"
                 ></div>
               ) : (
-                "Add house"
+                "Update house"
               )}
             </button>
           </div>
@@ -368,4 +269,4 @@ function AddHouse({ token }) {
   );
 }
 
-export default AddHouse;
+export default UpdateHouse;

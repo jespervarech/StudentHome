@@ -33,23 +33,29 @@ function HouseSideList() {
           <strong className="mt-1">Loading...</strong>
         </div>
       ) : (
-        houses.slice(0, 6).map((house, index) => (
-          <div
-            key={index}
-            className="sidelist my-3 d-flex flex-row align-items-center justify-content-between"
-          >
-            <div className="d-flex flex-row align-items-center">
-              <img src={house?.image} className="rounded-circle" />
-              <div className="d-flex flex-column ms-2">
-                <h1 className="m-0"> {house.ville?.nom}</h1>
-                <p className="m-0">{house.adresse}</p>
+        houses.slice(0, 6).map((house, index) => {
+          const firstImage =
+            house.images && house.images.length > 0
+              ? house.images[0].chemain
+              : null;
+          return (
+            <div
+              key={index}
+              className="sidelist my-3 d-flex flex-row align-items-center justify-content-between"
+            >
+              <div className="d-flex flex-row align-items-center">
+                <img src={firstImage} className="rounded-circle" />
+                <div className="d-flex flex-column ms-2">
+                  <h1 className="m-0"> {house.ville?.nom}</h1>
+                  <p className="m-0">{house.adresse}</p>
+                </div>
               </div>
+              <Link className="link" to={`/houseDetails/${house.id}`}>
+                <i className="fa-solid fa-arrow-up-right-from-square"></i>
+              </Link>
             </div>
-            <Link className="link" to={`/houseDetails/${house.id}`}>
-              <i className="fa-solid fa-arrow-up-right-from-square"></i>
-            </Link>
-          </div>
-        ))
+          );
+        })
       )}
       <Link className="link" to="/">
         <button className="w-100 px-3 py-2 mt-3">DiscoverMore</button>

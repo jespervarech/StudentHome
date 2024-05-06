@@ -3,21 +3,23 @@ import { Link } from "react-router-dom";
 import Reviews from "./Reviews";
 
 function HouseItem({ house }) {
+  const firstImage = house.images && house.images.length > 0 ? house.images[0].chemain : null;
   return (
     <div className="col-md-4 col-lg-3 px-3 px-lg-2  g-4 d-flex justify-content-center">
       <Link className="link w-100 " to={`/houseDetails/${house.id}`}>
         <div className="house-box h-100 w-100 d-flex flex-column justify-content-between">
           <span>
-            <img src={house?.image} />
+            <img src={firstImage} />
             <div className="px-3 py-2 w-100">
               <div className="d-flex flex-row justify-content-between">
                 <h1>
-                  <i className="fa-solid fa-location-dot me-3"></i>
-                  {house.id} {house.ville?.nom}
+                  <i className="fa-solid fa-location-dot me-1"></i>
+                  {/* {house.id}  */}
+                  {house.ville?.nom}
                 </h1>
                 <Reviews rating={house.noteGlobale} />
               </div>
-              <h2>{house.adresse}</h2>
+              <h1>{house.adresse}</h1>
               <p>{house.description}</p>
             </div>
           </span>
