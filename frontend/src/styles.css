@@ -47,7 +47,9 @@ i {
 ul {
     list-style: none !important;
 }
-
+.cursor-pointer{
+    cursor: pointer;
+}
 input,
 select,
 textarea {

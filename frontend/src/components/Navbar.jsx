@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import logo from "../img/logo.png";
 import UpdateProfile from "../page/modals/UpdateProfile";
@@ -12,6 +12,7 @@ function Navbar() {
   const [id, setId] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [isAimationStart, setIsAnimationStart] = useState(true);
+  const navigate = useNavigate()
   const location = useLocation();
   useEffect(() => {
     const handleScroll = () => {
@@ -67,6 +68,8 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("StudentHomeUser");
     setAuthenticated(false);
+    navigate("/")
+
   };
 
   useEffect(() => {
@@ -77,7 +80,7 @@ function Navbar() {
         );
         setProfile(response.data);
       } catch (error) {
-        console.error("Error fetching profile:", error);
+        console.error("Error add reserve:", error);
       }
     };
 

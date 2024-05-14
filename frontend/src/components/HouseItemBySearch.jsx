@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Reviews from "./Reviews";
-
 function HouseItemBySearch({house}) {
+  const firstImage = house.images && house.images.length > 0 ? house.images[0].chemain : null;
   return (
     <Link className="link w-100 " to={`/houseDetails/${house.id}`}>
       <div className="row  mb-4 houseListBySearch-item mx-1 mx-lg-0 ">
         <div className="col-md-6  p-0">
-        <img src={house?.image} />
+        <img src={firstImage} />
         </div>
         <div className="col-md-6 p-0 d-flex flex-column justify-content-between">
           <div className="px-3 py-2 w-100">

@@ -7,8 +7,21 @@ import Reviews from "../components/Reviews";
 import ImageCarousel from "../components/ImageCarousel";
 import DeleteHouse from "./modals/DeleteHouse";
 import UpdateHouse from "./modals/UpdateHouse";
+import ReserveHouse from "./modals/ReserveHouse";
 
 function HouseDetails() {
+  const [token, setToken] = useState("");
+  const [iduser, setId] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
+  useEffect(() => {
+    const userString = localStorage.getItem("StudentHomeUser");
+    if (userString) {
+      const userData = JSON.parse(userString);
+      setToken(userData.accessToken);
+      setId(userData.id);
+      setAuthenticated(true);
+    }
+  }, [token, iduser]);
   const { id } = useParams();
   const [house, setHouse] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,31 +76,33 @@ function HouseDetails() {
               <div className="d-flex flex-row justify-content-between ">
                 <h1>{house.prix}$</h1>
 
-                <div className="dropdown">
-                  <i
-                    className="fa-solid fa-ellipsis-vertical cursor-pointer"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></i>
-                  <ul className="dropdown-menu dropdown-menu-end px-1">
-                    <span
-                      data-bs-toggle="modal"
-                      data-bs-target="#deleteHouse"
-                      className="dropdown-item cursor-pointer  user-info"
-                    >
-                      <i className="fa-solid fa-trash me-2 "></i> Delete
-                    </span>
+               {
+                authenticated &&  <div className="dropdown">
+                <i
+                  className="fa-solid fa-ellipsis-vertical cursor-pointer"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                ></i>
+                <ul className="dropdown-menu dropdown-menu-end px-1">
+                  <span
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteHouse"
+                    className="dropdown-item cursor-pointer  user-info"
+                  >
+                    <i className="fa-solid fa-trash me-2 "></i> Delete
+                  </span>
 
-                    <span
-                      data-bs-toggle="modal"
-                      data-bs-target="#updateHouse"
-                      className="dropdown-item cursor-pointer  user-info"
-                    >
-                      <i className="fa-solid fa-pen-to-square me-2"></i> Update
-                    </span>
-                  </ul>
-                </div>
+                  <span
+                    data-bs-toggle="modal"
+                    data-bs-target="#updateHouse"
+                    className="dropdown-item cursor-pointer  user-info"
+                  >
+                    <i className="fa-solid fa-pen-to-square me-2"></i> Update
+                  </span>
+                </ul>
+              </div>
+               }
               </div>
               <h2>
                 {house.Superficie} {house.adresse}
@@ -122,9 +137,14 @@ function HouseDetails() {
                   </p>
                 </span>
               </div>
-              <Link className="link" to="/">
-                <button className="w-100 px-3 py-2 mt-3">Reserve Now</button>
-              </Link>
+              {authenticated ? (
+                <button  data-bs-toggle="modal"
+                data-bs-target="#addreserve" className="w-100 px-3 py-2 mt-3">Reserve Now</button>
+              ) : (
+                <button className="w-100 px-3 py-2 mt-3 text-danger">
+                  Please authenticate to reserve
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -134,6 +154,7 @@ function HouseDetails() {
         </div>
       </div>
       <DeleteHouse id={id} />
+      <ReserveHouse idLogement={id}/>
       <UpdateHouse house={house} updateHouseDetails={updateHouseDetails} />
     </div>
   );

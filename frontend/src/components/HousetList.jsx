@@ -13,7 +13,7 @@ function HouseList() {
     const fetchHouses = async () => {
       try {
         const response = await axios.get(
-          `https://realstatestudent.onrender.com/logement/afficherAllLogementByindex?index=${currentPage}`
+          `https://realstatestudent.onrender.com/logement/filtreLogement?ville=&prix=&index=${currentPage}`
         );
         setHouses(response.data);
       } catch (error) {
